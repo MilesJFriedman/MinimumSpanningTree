@@ -3,6 +3,7 @@ package homework2Kruskals;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * KruskalSolver.java
@@ -17,7 +18,15 @@ public class KruskalsSolver {
 		//Create a new buffered reader for the input file.
 		BufferedReader input = new BufferedReader(new FileReader("C:\\Users\\Miles\\workspace\\COP3503 - Computer Science II\\src\\homework2Kruskals\\input.txt"));
 		
+		//mark the current point so it can be reset after the test for file content in the while
+		//loop below.
+		input.mark(1);
+		
+		//while there is still content to be read in the input file
 		while (input.readLine() != null) {
+			
+			//reset the marker to point to the beginning of the file.
+			input.reset();
 			
 			//Scan the first line of the test case into a variable representing the number of points
 			//in the test case.
@@ -55,6 +64,13 @@ public class KruskalsSolver {
 			}
 			
 			System.out.println(edgeWeightNeeded);
+			//input.mark(1);
+			
+			try {
+				input.mark(1); //mark the start of the next test case.
+			} catch (Exception e) {
+				
+			}
 			
 		}
 		
