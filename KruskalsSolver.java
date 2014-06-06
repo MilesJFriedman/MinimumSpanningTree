@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * KruskalSolver.java
@@ -23,11 +25,11 @@ public class KruskalsSolver {
 		input.mark(1);
 		
 		//while there is still content to be read in the input file
-		while (input.readLine() != null) {
+		while (input.read() != '0') {
 			
 			//reset the marker to point to the beginning of the file.
 			input.reset();
-			
+	
 			//Scan the first line of the test case into a variable representing the number of points
 			//in the test case.
 			int numOfPoints = 0;
@@ -63,19 +65,29 @@ public class KruskalsSolver {
 				edgeWeightNeeded = edgeWeightNeeded + findBestEdgeWeight(points, numOfPoints);
 			}
 			
-			System.out.println(edgeWeightNeeded);
+			//System.out.println(edgeWeightNeeded);
 			//input.mark(1);
+			
+			double answer = 0;
+			answer = roundToTwoPlaces (edgeWeightNeeded);
+			System.out.println(answer);
 			
 			try {
 				input.mark(1); //mark the start of the next test case.
-			} catch (Exception e) {
-				
+			} catch (IOException e) {
+				System.out.println("Caught IOException");
 			}
 			
 		}
 		
 	}
 
+	
+	public static double roundToTwoPlaces (double number) {
+		DecimalFormat df = new DecimalFormat("##.##");
+		df.setRoundingMode(RoundingMode.HALF_UP);
+		return Double.parseDouble(df.format(number));
+	}
 	
 	public static boolean allPointsConnected (DisjointSet points, int numOfPoints) {
 		int setTest = -1; //used to test to see whether all points are part of the same set.
